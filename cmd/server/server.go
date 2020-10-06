@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/swaggo/swag/example/basic/web"
 	"go-rille/internal/config"
 	"go-rille/internal/json"
 	"log"
