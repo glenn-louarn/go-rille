@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-rille/internal/config"
 	"go-rille/internal/json"
 	"log"
 	"net/http"
@@ -19,5 +20,6 @@ func tempHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/temp", tempHandler)
-	log.Fatal(http.ListenAndServe(":8888", nil))
+	port := ":" + config.GetEnv("PORT")
+	log.Fatal(http.ListenAndServe(port, nil))
 }
