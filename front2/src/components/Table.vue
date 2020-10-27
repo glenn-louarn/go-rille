@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         async change() {
-            const axios = require("axios");
+            /*   const axios = require("axios");
             await axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
                 .then(response => (this.itemsRain = this.createlist(response.data)));
@@ -88,7 +88,7 @@ export default {
             await axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
                 .then(response => (this.itemsTemperature = this.createlist(response.data)));
-
+*/
         },
         createlist(resAPI) {
             let res = []
