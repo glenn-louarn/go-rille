@@ -16,22 +16,18 @@
                         Date
                     </th>
                     <th class="text-left">
-                        Température
+                        Capteur
                     </th>
                     <th class="text-left">
-                        Vent
-                    </th>
-                    <th class="text-left">
-                        Pluie
+                        Valeur
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in items" :key="item.Date">
                     <td>{{ item.Date }}</td>
-                    <td>{{ item.Kmh }}</td>
-                    <td>{{ item.Temperature }}</td>
-                    <td>{{ item.Pluie }}</td>
+                    <td>{{ item.Capteur }}</td>
+                    <td>{{ item.Val }}</td>
                 </tr>
             </tbody>
         </template>
@@ -49,34 +45,16 @@ export default {
         dateFin: "",
         items: [{
             Date: "10/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
+            Capteur: "Pluie",
+            Val: 20
         }, {
             Date: "11/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
+            Capteur: "Vent",
+            Val: 20,
         }, {
             Date: "13/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
-        }, {
-            Date: "12/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
-        }, {
-            Date: "14/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
-        }, {
-            Date: "15/20/2020",
-            Kmh: 20,
-            Temperature: 20,
-            Pluie: 20
+            Capteur: "Température",
+            Val: 20,
         }]
     }),
     async created() {
@@ -93,7 +71,7 @@ export default {
         async change() {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/date/filter/' + this.dateDebut + "/" + this.dateFin)
+                .get('http://localhost:8081/aeroport/' + this.$route.params.id + '/filter/' + this.dateDebut + "/" + this.dateFin)
                 .then(response => (this.cards = [response.data]));
             //console.log("je change debut ", this.dateDebut, " fin ", this.dateFin)
         }
