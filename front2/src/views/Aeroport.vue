@@ -2,26 +2,26 @@
 <v-container class="container">
     <v-row>
         <v-col cols="6">
-            <h2>{{item.AeroportName}} ({{item.AeroportInitial}})</h2>
+            <h2>{{item.aeroportName}} ({{item.aeroportInitial}})</h2>
             <h4 class="marginTop">Moyenne :</h4>
             <v-col>
                 <v-row align="center" justify="left">
                     <v-col cols="2">
                         <v-icon>mdi-thermometer</v-icon>
                     </v-col>
-                    <h4>Température : {{item.Temperature}} °C </h4>
+                    <h4>Température : {{item.val.temperature}} °C </h4>
                 </v-row>
                 <v-row align="center" justify="left">
                     <v-col cols="2">
                         <v-icon>mdi-weather-windy</v-icon>
                     </v-col>
-                    <h4>Vent : {{item.Kmh}} km/h</h4>
+                    <h4>Vent : {{item.val.wind}} km/h</h4>
                 </v-row>
                 <v-row align="center" justify="left">
                     <v-col cols="2">
                         <v-icon>mdi-water</v-icon>
                     </v-col>
-                    <h4>Pluie : {{item.Pluie}} % </h4>
+                    <h4>Pluie : {{item.val.rain}} % </h4>
                 </v-row>
             </v-col>
         </v-col>
@@ -40,18 +40,17 @@ export default {
     },
     data: () => ({
         item: {
-            AeroportName: "Default",
-            AeroportInitial: "DEf",
-            Kmh: 0,
-            Temperature: 0,
-            Pluie: 0,
+            aeroportName: "Default",
+            aeroportInitial: "DEf",
+            val: Object
         }
     }),
     async created() {
         const axios = require("axios");
+        this.item.aeroportInitial = this.$route.params.id.substr(1)
         await axios
-            .get('http://localhost:8081/donnees/' + this.$route.params.id + "/2020-07-07")
-            .then(response => (this.item = [response.data]))
+            .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-07-07")
+            .then(response => (this.item.val = response.data))
     },
     methods: {
         redirectToHome() {

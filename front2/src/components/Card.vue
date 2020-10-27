@@ -5,11 +5,11 @@
             <v-card width="260px" height="280px" @click="getAeroport()">
                 <v-card-title>
 
-                    {{item.AeroportName}}
+                    {{item.aeroportName}}
                 </v-card-title>
 
                 <v-card-subtitle>
-                    ({{item.AeroportInitial}})
+                    ({{item.aeroportInitial}})
                 </v-card-subtitle>
                 <v-list dense>
                     <v-list-item-group color="primary">
@@ -18,7 +18,7 @@
                                 <v-icon>mdi-water</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.val[0]+'%'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val.rain+'%'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
@@ -27,7 +27,7 @@
                                 <v-icon>mdi-weather-windy</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.val[1]+'km/h'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val.wind+'km/h'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
@@ -35,7 +35,7 @@
                                 <v-icon>mdi-thermometer</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.val[2]+'°C'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val.temperature+'°C'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-item-group>

@@ -24,7 +24,7 @@ export default {
         cards: [{
                 aeroportName: "Charle de gaule",
                 aeroportInitial: "CDG",
-                val: []
+                val: Object
             },
             {
                 aeroportName: "Base aérienne d'Alverca",
@@ -34,11 +34,11 @@ export default {
             {
                 aeroportName: "Aéroport régional de Marana",
                 aeroportInitial: "AVW",
-                val: []
+                val: Object
             }, {
                 aeroportName: "Aéroport de Malakal",
                 aeroportInitial: "MAK",
-                val: []
+                val: Object
             }
         ]
 
@@ -55,7 +55,7 @@ export default {
             let res;
             await axios
                 .get('http://localhost:8081/donnees/' + name + '/2020-07-07')
-                .then(response => (res = [response.data]))
+                .then(response => (res = response.data))
             return res;
         }
     }

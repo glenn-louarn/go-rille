@@ -24,9 +24,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items" :key="item.Date">
+                <tr v-for="item in itemsRain" :key="item.Val">
                     <td>{{ item.Date }}</td>
-                    <td>{{ item.Capteur }}</td>
+                    <td>Pluie</td>
+                    <td>{{ item.Val }}</td>
+                </tr>
+                <tr v-for="item in itemsTemperature" :key="item.Val">
+                    <td>{{ item.Date }}</td>
+                    <td>Temperature</td>
+                    <td>{{ item.Val }}</td>
+                </tr>
+                <tr v-for="item in itemsWind" :key="item.Val">
+                    <td>{{ item.Date }}</td>
+                    <td>Vents</td>
                     <td>{{ item.Val }}</td>
                 </tr>
             </tbody>
@@ -43,18 +53,17 @@ export default {
         ],
         dateDebut: "",
         dateFin: "",
-        items: [{
+        itemsRain: [{
             Date: "10/20/2020",
-            Capteur: "Pluie",
             Val: 20
-        }, {
-            Date: "11/20/2020",
-            Capteur: "Vent",
-            Val: 20,
-        }, {
-            Date: "13/20/2020",
-            Capteur: "Température",
-            Val: 20,
+        }],
+        itemsWind: [{
+            Date: "10/20/2020",
+            Val: 10
+        }],
+        itemsTemperature: [{
+            Date: "10/20/2020",
+            Val: 20
         }]
     }),
     async created() {
@@ -71,8 +80,29 @@ export default {
         async change() {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin)
-                .then(response => (this.cards = [response.data]));
+                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
+                .then(response => (this.itemsRain = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/WIND")
+                .then(response => (this.itemsWind = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
+                .then(response => (this.itemsTemperature = this.createlist(response.data)));
+
+        },
+        createlist(resAPI) {
+            let res = []
+            for (let i = 0; i < resAPI.length; i++) {
+                if (resAPI[i].ValeurCapteur != null) {
+                    for (let j = 0; j < resAPI[i].val.length; j++) {
+                        res.push({
+                            date: resAPI[i].Date,
+                            val: resAPI[i].ValeurCapteur[j]
+                        })
+                    }
+                }
+            }
+            return res
         }
     }
 };
