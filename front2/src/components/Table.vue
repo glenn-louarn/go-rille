@@ -59,10 +59,10 @@ export default {
     }),
     async created() {
 
-        const axios = require("axios");
-        await axios
-            .get('http://localhost:8081/date')
-            .then(response => (this.dates = [response.dates]));
+        // const axios = require("axios");
+        // await axios
+        //     .get('http://localhost:8081/date')
+        //     .then(response => (this.dates = [response.dates]));
         this.dateDebut = this.dates[0];
         this.dateFin = this.dates[this.dates.length - 1];
         this.change();
@@ -71,9 +71,8 @@ export default {
         async change() {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/aeroport/' + this.$route.params.id + '/filter/' + this.dateDebut + "/" + this.dateFin)
+                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/filter/' + this.dateDebut + "/" + this.dateFin)
                 .then(response => (this.cards = [response.data]));
-            //console.log("je change debut ", this.dateDebut, " fin ", this.dateFin)
         }
     }
 };
