@@ -52,9 +52,11 @@ export default {
     methods: {
         async getAeroport(name) {
             const axios = require("axios");
+            let res;
             await axios
                 .get('http://localhost:8081/donnees/' + name + '/2020-07-07')
-                .then(response => (this.cards = [response.data]))
+                .then(response => (res = [response.data]))
+            return res;
         }
     }
 
