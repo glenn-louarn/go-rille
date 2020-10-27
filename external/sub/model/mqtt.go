@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -38,7 +37,7 @@ func Get(config Configuration,client mqtt.Client){
 	client.Subscribe("capteur",0, func(client mqtt.Client, message mqtt.Message) {
 		var msg = string(message.Payload())
 		fmt.Println(msg)
-		req,err := http.NewRequest("POST","http://localhost:8080/donnees",bytes.NewBuffer([]byte(msg)))
+		req,err := http.NewRequest("POST","http://localhost:8081/donnees",bytes.NewBuffer([]byte(msg)))
 		req.Header.Set("X-Custom-Header","MyValue")
 		req.Header.Set("Content-Type","application/json")
 		webClient := &http.Client{}
@@ -47,9 +46,5 @@ func Get(config Configuration,client mqtt.Client){
 			panic(err)
 		}
 		defer resp.Body.Close()
-		fmt.Println("response Status:",resp.Status)
-		fmt.Println("response Headers:",resp.Header)
-		body,_:=ioutil.ReadAll(resp.Body)
-		fmt.Println("response Body:",string(body))
 	})
 }

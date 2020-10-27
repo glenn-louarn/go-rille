@@ -14,7 +14,7 @@ import (
 
 func DataBetweenDates(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	layout := "2006-01-02"
 	vars := mux.Vars(r)
 	idAirport := vars["idAirport"]
@@ -41,6 +41,7 @@ func DataBetweenDates(w http.ResponseWriter, r *http.Request) {
 }
 func DataCapteurAverageSensor(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
 	vars := mux.Vars(r)
 	idAirport, _ := vars["idAirport"]
@@ -58,6 +59,8 @@ func DataCapteurAverageSensor(w http.ResponseWriter, r *http.Request) {
 
 func DonneesCapteurCreate(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	w.WriteHeader(http.StatusOK)
 
 	body, err := ioutil.ReadAll(r.Body)
