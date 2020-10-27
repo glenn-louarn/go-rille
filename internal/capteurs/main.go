@@ -17,11 +17,6 @@ func main() {
 
 	for i := nbTours ; i > 0 ; i-- {
 		var donneesAleatoire model.DonneesCapteur = model.GenererDonneesCapteur()
-		println(donneesAleatoire.IdCapteur)
-		println(donneesAleatoire.IdAeroport)
-		println(donneesAleatoire.TypeMesure)
-		println(donneesAleatoire.ValeurMesure)
-		println(donneesAleatoire.Date.String())
 		model.Send(configuration, donneesAleatoire)
 		time.Sleep(frequenceEmissionDuration * time.Second)
 	}
