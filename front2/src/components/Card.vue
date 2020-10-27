@@ -18,16 +18,16 @@
                                 <v-icon>mdi-water</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.Pluie+'%'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val[0]+'%'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
                             <v-list-item-icon>
-                            
+
                                 <v-icon>mdi-weather-windy</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.Kmh+'km/h'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val[1]+'km/h'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                         <v-list-item>
@@ -35,7 +35,7 @@
                                 <v-icon>mdi-thermometer</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="item.Temperature+'°C'"></v-list-item-title>
+                                <v-list-item-title v-text="item.val[2]+'°C'"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-item-group>
@@ -50,19 +50,13 @@
 export default {
     name: 'Card',
     props: {
-        item: Object,
-        id: String,
-        aeroportName: String,
-        aeroportInitial: String,
-        kmh: Number,
-        temperature: Number,
-        pluie: Number
+        item: Object
     },
     methods: {
 
         getAeroport() {
             this.$router.push({
-                path: "/aeroport/:" + this.item.id
+                path: "/aeroport/:" + this.item.aeroportInitial
             })
         }
     }
