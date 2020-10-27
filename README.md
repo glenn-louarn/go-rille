@@ -9,21 +9,21 @@
 
 * Glenn Louarn
 
-##Installation et démarrage
+## Installation et démarrage
 
-###Front 
+### Front 
 npm install
 
 npm run serve
 
 npm run build
 
-###Back
+### Back
 Lancer le server redis<br/>
 go build 
 
 
-##Structure des fichiers
+## Structure des fichiers
 * cmb : Api de l'application
 * external : Sub
 * front : Projet en Vue.js contenant le front-end
