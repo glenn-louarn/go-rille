@@ -39,7 +39,7 @@
 export default {
     data: () => ({
         dates: [
-            '10/11/2020', '11/11/2020', '12/11/2020', '13/11/2020'
+            '2020-07-07', '2020-07-08', '2020-07-09', '2020-07-10'
         ],
         dateDebut: "",
         dateFin: "",
@@ -71,7 +71,7 @@ export default {
         async change() {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/filter/' + this.dateDebut + "/" + this.dateFin)
+                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin)
                 .then(response => (this.cards = [response.data]));
         }
     }

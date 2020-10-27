@@ -40,7 +40,6 @@ export default {
     },
     data: () => ({
         item: {
-            Id: "0",
             AeroportName: "Default",
             AeroportInitial: "DEf",
             Kmh: 0,
@@ -51,7 +50,7 @@ export default {
     async created() {
         const axios = require("axios");
         await axios
-            .get('http://localhost:8081/aeroport/' + this.$route.params.id)
+            .get('http://localhost:8081/donnees/' + this.$route.params.id + "/2020-07-07")
             .then(response => (this.item = [response.data]))
     },
     methods: {
