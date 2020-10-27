@@ -44,10 +44,10 @@ export default {
 
     }),
     async created() {
-        this.cards[0].val = this.getAeroport("CDG")
-        this.cards[1].val = this.getAeroport("AVR")
-        this.cards[2].val = this.getAeroport("AVW")
-        this.cards[3].val = this.getAeroport("MAK")
+        this.cards[0].val = await this.getAeroport("CDG")
+        this.cards[1].val = await this.getAeroport("AVR")
+        this.cards[2].val = await this.getAeroport("AVW")
+        this.cards[3].val = await this.getAeroport("MAK")
     },
     methods: {
         async getAeroport(name) {
