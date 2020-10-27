@@ -53,7 +53,7 @@ export default {
         async getAeroport(name) {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/donnees/' + name + '/27')
+                .get('http://localhost:8081/donnees/' + name + '/2020-10-28')
                 .then(response => (this.cards = [response.data]))
         }
     }
