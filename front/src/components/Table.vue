@@ -52,14 +52,20 @@ export default {
             '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18'
         ],
         dateDebut: "",
-        dateFin: ""
+        dateFin: "",
+        itemsRain: [{
+            Date: "10/20/2020",
+            Val: 20
+        }],
+        itemsWind: [{
+            Date: "10/20/2020",
+            Val: 10
+        }],
+        itemsTemperature: [{
+            Date: "10/20/2020",
+            Val: 20
+        }]
     }),
-    props: {
-        itemsRain: Object,
-        itemsWind: Object,
-        itemsTemperature: Object
-    },
-
     async created() {
 
         // const axios = require("axios");
@@ -68,12 +74,36 @@ export default {
         //     .then(response => (this.dates = [response.dates]));
         this.dateDebut = this.dates[0];
         this.dateFin = this.dates[this.dates.length - 1];
+        this.change();
     },
     methods: {
-        change() {
-            this.$emit("change");
-        }
+        async change() {
+            const axios = require("axios");
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
+                .then(response => (this.itemsRain = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/WIND")
+                .then(response => (this.itemsWind = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
+                .then(response => (this.itemsTemperature = this.createlist(response.data)));
 
+        },
+        createlist(resAPI) {
+            let res = []
+            for (let i = 0; i < resAPI.length; i++) {
+                if (resAPI[i].ValeurCapteur != null) {
+                    for (let j = 0; j < resAPI[i].val.length; j++) {
+                        res.push({
+                            date: resAPI[i].Date,
+                            val: resAPI[i].ValeurCapteur[j]
+                        })
+                    }
+                }
+            }
+            return res
+        }
     }
 };
 </script>
