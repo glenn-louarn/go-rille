@@ -30,5 +30,15 @@ func GetConfig() Configuration {
 
 	json.Unmarshal(byteValue, &config)
 
+<<<<<<< HEAD
+=======
+	/*
+	println(config.ADRESSE_BROKER_MQTT)
+	println(config.PORT_BROKER_MQTT)
+	println(config.NIVEAU_DE_QOS)
+	println(config.ID_CLIENT)
+	*/
+
+>>>>>>> ac53210c4b447e56b916afdd3f22800841553a9b
 	return config
 }
