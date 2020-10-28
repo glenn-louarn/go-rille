@@ -14,31 +14,40 @@ type DonneesCapteur struct {
 	Date         time.Time	`json:"date"`
 }
 
-func GenererDonneesCapteur() DonneesCapteur {
+func GenererDonneesCapteur(typeMesure string, dateMesure time.Time, idAeroport string) DonneesCapteur {
 	var donneesGenerees DonneesCapteur
 	donneesGenerees.Id = rand.Int()
 	donneesGenerees.IdCapteur = rand.Int()
-	donneesGenerees.IdAeroport = RandomAeroport()
-	donneesGenerees.TypeMesure = RandomCapteur()
+	donneesGenerees.IdAeroport = idAeroport
+	donneesGenerees.TypeMesure = typeMesure
 	donneesGenerees.ValeurMesure = rand.Float32()
-	donneesGenerees.Date = time.Date(2020, 07, 07, 00,00,00, 00, time.UTC)
+	donneesGenerees.Date = dateMesure
 
 	return donneesGenerees
 }
 
-func RandomCapteur() string {
-	var s [4]string
-	s[0] = "WIND"
-	s[1] = "TEMP"
-	s[2] = "RAIN"
-	return s[rand.Int()%3]
+func GetTypeMesureTableau() [3]string {
+	var typesMesures [3]string
+	typesMesures[0] = "WIND"
+	typesMesures[1] = "TEMP"
+	typesMesures[2] = "RAIN"
+	return typesMesures
 }
 
 func RandomAeroport() string {
-	var s [4]string
-	s[0] = "CDG"
-	s[1] = "AVR"
-	s[2] = "AVW"
-	s[3] = "MAK"
-	return s[rand.Int()%4]
+	var aeroports [4]string
+	aeroports[0] = "CDG"
+	aeroports[1] = "AVR"
+	aeroports[2] = "AVW"
+	aeroports[3] = "MAK"
+	return aeroports[rand.Int()%4]
+}
+
+func RandomDate() time.Time {
+	min := time.Date(2020, 1, 0, 0, 0, 0, 0, time.UTC).Unix()
+	max := time.Date(2021, 1, 0, 0, 0, 0, 0, time.UTC).Unix()
+	delta := max - min
+
+	sec := rand.Int63n(delta) + min
+	return time.Unix(sec, 0)
 }

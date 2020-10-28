@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/my/repo/internal/capteurs/model"
 	"time"
 )
@@ -11,13 +12,19 @@ const tempsEmission int = 10
 
 func main() {
 	var configuration model.Configuration = model.GetConfig()
-	configuration.ID_CLIENT = ""
 
 	nbTours := (tempsEmission * 60) / frequenceEmissionInt
 
 	for i := nbTours ; i > 0 ; i-- {
-		var donneesAleatoire model.DonneesCapteur = model.GenererDonneesCapteur()
-		model.Send(configuration, donneesAleatoire)
+		dateMesure := model.RandomDate()
+		aeroportMesure := model.RandomAeroport()
+
+		for j := 0 ; j < len(model.GetTypeMesureTableau()) ; j++ {
+			donneesAleatoire := model.GenererDonneesCapteur(model.GetTypeMesureTableau()[j], dateMesure, aeroportMesure)
+			val, _ := json.Marshal(donneesAleatoire)
+			println(string(val))
+			model.Send(configuration, donneesAleatoire)
+		}
 		time.Sleep(frequenceEmissionDuration * time.Second)
 	}
 }

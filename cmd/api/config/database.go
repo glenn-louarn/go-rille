@@ -8,16 +8,19 @@ import (
 
 var db redis.Conn
 
+var IP_DATABASE = "93.23.6.57:6379"
+var PW = "lesgogos"
+
 func DatabaseInit() {
 	var err error
 
-	db, err = redis.Dial("tcp", "93.23.6.57:6379")
+	db, err = redis.Dial("tcp", IP_DATABASE)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, err = db.Do("AUTH", "lesgogos")
+	_, err = db.Do("AUTH", PW)
 
 	if err != nil {
 		log.Fatal(err)

@@ -24,16 +24,9 @@ func Connect(clientId string, config Configuration) mqtt.Client {
 func createClientOptions(clientId string, config Configuration) *mqtt.ClientOptions {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("%s:%s", config.ADRESSE_BROKER_MQTT, config.PORT_BROKER_MQTT))
-	/*
-	opts.SetUsername(config.ID_CLIENT)
-	password := config.MOT_DE_PASSE
-	opts.SetPassword(password)
-	opts.SetClientID(clientId)
-	*/
 	return opts
 }
 func Get(config Configuration,client mqtt.Client){
-	println("test sub : ")
 	client.Subscribe("capteur",0, func(client mqtt.Client, message mqtt.Message) {
 		var msg = string(message.Payload())
 		fmt.Println(msg)
