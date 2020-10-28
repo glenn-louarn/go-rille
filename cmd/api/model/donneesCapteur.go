@@ -49,10 +49,14 @@ func GetSensorDataByDate(idAeroport string,date string,sensor string) []float32 
 	for i:=0; i<len(keys);i++{
 		key := keys[i]
 		var data DonneesCapteur
-		jsonVal, _ := redis.String(config.Db().Do("GET","donnee:"+strings.Split(key,":")[1]))
-		json.Unmarshal([]byte(jsonVal),&data)
-		if data.IdAeroport == idAeroport && data.Date.Format("2006-01-02")==date && sensor == data.TypeMesure{
-			valuesToSend = append(valuesToSend,data.ValeurMesure)
+		jsonVal, err := redis.String(config.Db().Do("GET","donnee:"+strings.Split(key,":")[1]))
+		if err != nil{
+			log.Fatalln(err)
+		}else{
+			json.Unmarshal([]byte(jsonVal),&data)
+			if data.IdAeroport == idAeroport && data.Date.Format("2006-01-02")==date && sensor == data.TypeMesure{
+				valuesToSend = append(valuesToSend,data.ValeurMesure)
+			}
 		}
 	}
 	return valuesToSend
@@ -63,6 +67,7 @@ func AverageSensorByAirport(idAirport string, date string, sensor string) float3
 	var total float32 = 0
 	for _, value := range values {
 		total += value
+		print(value)
 	}
 	average := total / float32(len(values))
 	if math.IsNaN(float64(average)){

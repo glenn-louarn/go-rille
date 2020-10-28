@@ -50,7 +50,7 @@ export default {
         this.item.aeroportInitial = this.$route.params.id.substr(1)
         this.initialToName()
         await axios
-            .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-03-15")
+            .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-09-11")
             .then(response => (this.item.val = response.data))
     },
     methods: {

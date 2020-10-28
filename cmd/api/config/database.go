@@ -16,8 +16,8 @@ func DatabaseInit() {
 	var err error
 
 	pool = &redis.Pool{
-		MaxIdle: 80,
-		MaxActive: 200,
+		MaxIdle: 100000,
+		MaxActive: 1000000,
 		Dial: func() (redis.Conn, error) {
 			db, err := redis.Dial("tcp", IP_DATABASE)
 			if err != nil {

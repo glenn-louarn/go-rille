@@ -54,7 +54,7 @@ export default {
             const axios = require("axios");
             let res;
             await axios
-                .get('http://localhost:8081/donnees/' + name + '/2020-03-15')
+                .get('http://localhost:8081/donnees/' + name + '/2020-09-11')
                 .then(response => (res = response.data))
             return res;
         }
