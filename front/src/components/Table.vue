@@ -80,13 +80,13 @@ export default {
         async change() {
             const axios = require("axios");
             await axios
-                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
                 .then(response => (this.itemsRain = this.createlist(response.data)));
             await axios
-                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/WIND")
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/WIND")
                 .then(response => (this.itemsWind = this.createlist(response.data)));
             await axios
-                .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
                 .then(response => (this.itemsTemperature = this.createlist(response.data)));
 
         },
