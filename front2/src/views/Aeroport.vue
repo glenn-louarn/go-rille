@@ -51,12 +51,31 @@ export default {
         await axios
             .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-07-07")
             .then(response => (this.item.val = response.data))
+        this.initialToName()
     },
     methods: {
         redirectToHome() {
             this.$router.push({
                 path: "/home"
             })
+        },
+        initialToName() {
+            switch (this.item.aeroportInitial) {
+                case "AVR":
+                    this.item.aeroportName = "Base aérienne d'Alverca"
+                    break;
+                case "CDG":
+                    this.item.aeroportName = "Charle de gaule"
+                    break;
+                case "AVW":
+                    this.item.aeroportName = "Aéroport régional de Marana"
+                    break;
+                case "MAK":
+                    this.item.aeroportName = "Aéroport de Malakal"
+                    break;
+                default:
+                    this.item.aeroportName = "def"
+            }
         }
     }
 };
