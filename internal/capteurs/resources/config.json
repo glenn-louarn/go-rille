@@ -1,0 +1,7 @@
+{
+  "ADRESSE_BROKER_MQTT" : "93.23.6.57",
+  "PORT_BROKER_MQTT": "1883",
+  "NIVEAU_DE_QOS": "0",
+  "ID_CLIENT": "NONE",
+  "MOT_DE_PASSE": "lesgogos"
+}

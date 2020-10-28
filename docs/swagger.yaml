@@ -1,0 +1,118 @@
+basePath: /
+consumes:
+- application/json
+- application/xml
+- application/urlform
+- application/bin
+- application/multipartform
+- application/yaml
+- application/txt
+definitions:
+  AverageValues:
+    properties:
+      rain:
+        format: float
+        type: number
+        x-go-name: Rain
+      temperature:
+        format: float
+        type: number
+        x-go-name: Temperature
+      wind:
+        format: float
+        type: number
+        x-go-name: Wind
+    type: object
+    x-go-package: github.com/my/repo/cmd/api/model
+  DonneesBetweenDates:
+    properties:
+      Date:
+        type: string
+      ValeurCapteur:
+        items:
+          format: float
+          type: number
+        type: array
+    type: object
+    x-go-package: github.com/my/repo/cmd/api/model
+host: localhost:8081
+info:
+  description: Documentation de notre API
+  title: Go-rille.
+  version: 1.0.0
+paths:
+  /donnees/{idAirport}/{date}:
+    get:
+      operationId: idGet0
+      parameters:
+      - in: path
+        name: idAirport
+        required: true
+        type: string
+        x-go-name: Airport
+      - in: path
+        name: date
+        required: true
+        type: string
+        x-go-name: Date
+      responses:
+        "200":
+          $ref: '#/responses/res'
+      summary: Renvoie la moyenne des valeurs des trois senseurs pour un aéroport et une journée donnée.
+      tags:
+      - getAverageSensorByAirport
+  /donnees/{idAirport}/{date1}/{date2}/{sensorType}:
+    get:
+      operationId: idGet1
+      parameters:
+      - in: path
+        name: idAirport
+        required: true
+        type: string
+        x-go-name: Airport
+      - in: path
+        name: date1
+        required: true
+        type: string
+        x-go-name: Date1
+      - in: path
+        name: date2
+        required: true
+        type: string
+        x-go-name: Date2
+      - in: path
+        name: sensorType
+        required: true
+        type: string
+        x-go-name: SensorType
+      responses:
+        "200":
+          $ref: '#/responses/foobarResponse'
+      summary: Renvoie l'ensemble des valeurs du senseur pour l'aéroport passé en paramètre entre la date1 et la date2.
+      tags:
+      - getSensorType
+produces:
+- application/json
+- application/xml
+- application/urlform
+- application/bin
+- application/multipartform
+- application/yaml
+- application/txt
+responses:
+  foobarResponse:
+    description: Voici la reponse reçu.
+    schema:
+      items:
+        $ref: '#/definitions/DonneesBetweenDates'
+      type: array
+  res:
+    description: Voici la reponse reçu.
+    schema:
+      $ref: '#/definitions/AverageValues'
+schemes:
+- http
+securityDefinitions:
+  basic:
+    type: basic
+swagger: "2.0"
