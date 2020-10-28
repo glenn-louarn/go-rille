@@ -26,7 +26,7 @@
             </v-col>
         </v-col>
         <v-col cols="6">
-            <Table></Table>
+            <Table :itemsRain="itemsRain" :itemsWind="itemsWind" :itemsTemperature="itemsTemperature" @change="change"></Table>
         </v-col>
     </v-row>
 </v-container>
@@ -42,7 +42,10 @@ export default {
         item: {
             aeroportName: "Default",
             aeroportInitial: "DEf",
-            val: Object
+            val: Object,
+            itemsRain: Object,
+            itemsWind: Object,
+            itemsTemperature: Object
         }
     }),
     async created() {
@@ -52,6 +55,7 @@ export default {
         await axios
             .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-03-15")
             .then(response => (this.item.val = response.data))
+        await this.change()
     },
     methods: {
         redirectToHome() {
@@ -76,6 +80,33 @@ export default {
                 default:
                     this.item.aeroportName = "def"
             }
+        },
+        async change() {
+            const axios = require("axios");
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/2020-03-15/2020-03-18/RAIN')
+                .then(response => (this.itemsRain = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/2020-03-15/2020-03-18/WIND')
+                .then(response => (this.itemsWind = this.createlist(response.data)));
+            await axios
+                .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/2020-03-15/2020-03-18/TEMPERATURE')
+                .then(response => (this.itemsTemperature = this.createlist(response.data)));
+
+        },
+        createlist(resAPI) {
+            let res = []
+            for (let i = 0; i < resAPI.length; i++) {
+                if (resAPI[i].ValeurCapteur != null) {
+                    for (let j = 0; j < resAPI[i].val.length; j++) {
+                        res.push({
+                            date: resAPI[i].Date,
+                            val: resAPI[i].ValeurCapteur[j]
+                        })
+                    }
+                }
+            }
+            return res
         }
     }
 };
