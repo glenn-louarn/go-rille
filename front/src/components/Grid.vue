@@ -29,7 +29,7 @@ export default {
             {
                 aeroportName: "Base aérienne d'Alverca",
                 aeroportInitial: "AVR",
-                val: []
+                val: Object
             },
             {
                 aeroportName: "Aéroport régional de Marana",
@@ -54,7 +54,7 @@ export default {
             const axios = require("axios");
             let res;
             await axios
-                .get('http://localhost:8081/donnees/' + name + '/2020-07-07')
+                .get('http://localhost:8081/donnees/' + name + '/2020-03-15')
                 .then(response => (res = response.data))
             return res;
         }
