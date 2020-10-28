@@ -10,11 +10,17 @@ import (
 	"strings"
 	"time"
 )
+type DonneesBetweenDates struct {
+	Date string
+	ValeurCapteur []float32
+}
 type AverageValues struct {
 	Rain float32	`json:"rain"`
 	Wind float32	`json:"wind"`
 	Temperature float32	`json:"temperature"`
 }
+
+
 type DonneesCapteur struct {
 	Id			 int		`json:"id"`
 	IdCapteur    int 		`json:"idCapteur"`

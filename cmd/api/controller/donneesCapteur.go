@@ -15,6 +15,7 @@ import (
 func DataBetweenDates(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	var data model.DonneesBetweenDates
 	layout := "2006-01-02"
 	vars := mux.Vars(r)
 	idAirport := vars["idAirport"]
@@ -24,15 +25,19 @@ func DataBetweenDates(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	resultToSend := make(map[string][]float32)
+	var resultToSend []model.DonneesBetweenDates
 	days := date2.Sub(date1).Hours()/24
 	if days == 0 {
 		dateFormatted := time.Time.Format(date1, layout)
-		resultToSend[dateFormatted] = model.GetSensorDataByDate(idAirport, dateFormatted,sensor)
+		data.Date = dateFormatted
+		data.ValeurCapteur = model.GetSensorDataByDate(idAirport, dateFormatted,sensor)
+		resultToSend = append(resultToSend,data)
 	} else {
 		for i := 0; i < int(math.Abs(days))+1; i++ {
 			dateFormatted := time.Time.Format(date1, layout)
-			resultToSend[dateFormatted] = model.GetSensorDataByDate(idAirport, dateFormatted,sensor)
+			data.Date = dateFormatted
+			data.ValeurCapteur = model.GetSensorDataByDate(idAirport, dateFormatted,sensor)
+			resultToSend = append(resultToSend,data)
 			date1 = date1.AddDate(0, 0, 1)
 		}
 	}
