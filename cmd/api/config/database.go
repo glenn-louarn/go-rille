@@ -4,9 +4,10 @@ import (
 	redis "github.com/garyburd/redigo/redis"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
-var db redis.Conn
+var pool *redis.Pool
 
 var IP_DATABASE = "93.23.6.57:6379"
 var PW = "lesgogos"
@@ -14,13 +15,19 @@ var PW = "lesgogos"
 func DatabaseInit() {
 	var err error
 
-	db, err = redis.Dial("tcp", IP_DATABASE)
-
-	if err != nil {
-		log.Fatal(err)
+	pool = &redis.Pool{
+		MaxIdle: 80,
+		MaxActive: 200,
+		Dial: func() (redis.Conn, error) {
+			db, err := redis.Dial("tcp", IP_DATABASE)
+			if err != nil {
+				log.Printf("ERROR: fail init redis: %s", err.Error())
+				os.Exit(1)
+			}
+			_, err = db.Do("AUTH", PW)
+			return db, err
+		},
 	}
-
-	_, err = db.Do("AUTH", PW)
 
 	if err != nil {
 		log.Fatal(err)
@@ -28,6 +35,7 @@ func DatabaseInit() {
 }
 
 // Getter for db var
-func Db() redis.Conn {
-	return db
+func Db()  redis.Conn{
+	conn := pool.Get()
+	return conn
 }
