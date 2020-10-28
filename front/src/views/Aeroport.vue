@@ -60,7 +60,6 @@ export default {
             })
         },
         initialToName() {
-            console.log("yooyooyoy" + this.item.aeroportInitial)
             switch (this.item.aeroportInitial) {
                 case "AVR":
                     this.item.aeroportName = "Base aérienne d'Alverca"
