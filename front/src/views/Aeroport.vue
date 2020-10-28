@@ -48,10 +48,10 @@ export default {
     async created() {
         const axios = require("axios");
         this.item.aeroportInitial = this.$route.params.id.substr(1)
-        await axios
-            .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-07-07")
-            .then(response => (this.item.val = response.data))
         this.initialToName()
+        await axios
+            .get('http://localhost:8081/donnees/' + this.item.aeroportInitial + "/2020-03-15")
+            .then(response => (this.item.val = response.data))
     },
     methods: {
         redirectToHome() {
@@ -60,12 +60,13 @@ export default {
             })
         },
         initialToName() {
+            console.log("yooyooyoy" + this.item.aeroportInitial)
             switch (this.item.aeroportInitial) {
                 case "AVR":
                     this.item.aeroportName = "Base aérienne d'Alverca"
                     break;
                 case "CDG":
-                    this.item.aeroportName = "Charle de gaule"
+                    this.item.aeroportName = "Charles de gaulle"
                     break;
                 case "AVW":
                     this.item.aeroportName = "Aéroport régional de Marana"

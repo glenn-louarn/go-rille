@@ -22,7 +22,7 @@ export default {
     },
     data: () => ({
         cards: [{
-                aeroportName: "Charle de gaule",
+                aeroportName: "Charles de gaulle",
                 aeroportInitial: "CDG",
                 val: Object
             },

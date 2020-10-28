@@ -49,7 +49,7 @@
 export default {
     data: () => ({
         dates: [
-            '2020-07-07', '2020-07-08', '2020-07-09', '2020-07-10'
+            '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18'
         ],
         dateDebut: "",
         dateFin: "",
@@ -78,7 +78,7 @@ export default {
     },
     methods: {
         async change() {
-            /*   const axios = require("axios");
+            const axios = require("axios");
             await axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
                 .then(response => (this.itemsRain = this.createlist(response.data)));
@@ -88,7 +88,7 @@ export default {
             await axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
                 .then(response => (this.itemsTemperature = this.createlist(response.data)));
-*/
+
         },
         createlist(resAPI) {
             let res = []
