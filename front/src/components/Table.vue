@@ -79,13 +79,13 @@ export default {
     methods: {
         async change() {
             const axios = require("axios");
-            await axios
+            axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/RAIN")
                 .then(response => (this.itemsRain = this.createlist(response.data)));
-            await axios
+            axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/WIND")
                 .then(response => (this.itemsWind = this.createlist(response.data)));
-            await axios
+            axios
                 .get('http://localhost:8081/donnees/' + this.$route.params.id.substr(1) + '/' + this.dateDebut + "/" + this.dateFin + "/TEMPERATURE")
                 .then(response => (this.itemsTemperature = this.createlist(response.data)));
 
