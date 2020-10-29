@@ -26,7 +26,7 @@ func createClientOptions(clientId string, config Configuration) *mqtt.ClientOpti
 	opts.AddBroker(fmt.Sprintf("%s:%s", config.ADRESSE_BROKER_MQTT, config.PORT_BROKER_MQTT))
 	return opts
 }
-func Get(config Configuration,client mqtt.Client){
+func Get(client mqtt.Client){
 	client.Subscribe("capteur",0, func(client mqtt.Client, message mqtt.Message) {
 		var msg = string(message.Payload())
 		fmt.Println(msg)

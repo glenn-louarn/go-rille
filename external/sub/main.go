@@ -14,9 +14,8 @@ func main()  {
 	client := model.Connect("sub", configuration)
 
 	var nbTours = (tempsEmission * 60) / frequenceEmissionInt
-	configuration.ID_CLIENT = "Sub"
 	for i := nbTours ; i > 0 ; i-- {
-		model.Get(configuration,client)
+		model.Get(client)
 		time.Sleep(frequenceEmissionDuration * time.Second)
 	}
 }

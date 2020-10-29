@@ -37,6 +37,7 @@ en se placant à la racine du projet :
 * swagger serve -F=swagger docs\swagger.yaml
 ## Structure des fichiers
 * cmd : Api de l'application
-* external : Sub
+* docs : Documentation sur l'API (Swagger)
+* external : Subscriber au broker MQTT
 * front : Projet en Vue.js contenant le front-end
-* internal : Pub des valeurs des mesures des capteurs
+* internal : Publisher MQTT des valeurs des mesures des capteurs
